@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
+const cors = require('cors');
 
 //connect to DB
 
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "welcome to Support Desk" });
 });
 //CORES ISSUE
-
+app.use(cors());
 // Routes
 
 app.use("/api/users", require("./routes/userRoutes"));
