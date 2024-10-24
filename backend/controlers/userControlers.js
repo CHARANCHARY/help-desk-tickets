@@ -4,9 +4,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const userReg = asyncHandler(async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
-  if (!name || !password || !email || !role) {
+  if (!name || !password || !email ) {
     res.status(400);
     throw new Error("Fill all field");
   }
@@ -29,16 +29,16 @@ const userReg = asyncHandler(async (req, res) => {
   const user = await User.create({
     name: name,
     email: email,
-    password: hashedPassword,
-    role: role,
+    password: hashedPassword
+
   });
   if (user) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
-      role: role
+      token: generateToken(user._id)
+   
     });
   } else {
     res.status(400);
